@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="drag-container">
+    <div class="draggable" draggable="true">Item 1</div>
+    <div class="draggable" draggable="true">Item 2</div>
+    <div class="draggable" draggable="true">Item 3</div>
+    <div class="draggable" draggable="true">Item 4</div>
+</div>
+<div class="drop-container"></div>
+<style>
+    .drag-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .draggable {
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .drop-container {
+        background-color: #ccc;
+        border: 2px dashed #999;
+        height: 200px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+</style>
+<script>
+    const draggables = document.querySelectorAll('.draggable');
+    const dropContainer = document.querySelector('.drop-container');
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+        });
+
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+        });
+    });
+
+    dropContainer.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropContainer.classList.add('dragover');
+    });
+
+    dropContainer.addEventListener('dragleave', () => {
+        dropContainer.classList.remove('dragover');
+    });
+
+    dropContainer.addEventListener('drop', e => {
+        e.preventDefault();
+        dropContainer.classList.remove('dragover');
+        const draggable = document.querySelector('.dragging');
+        dropContainer.appendChild(draggable);
+    });
+
+</script>
+</body>
+</html>
