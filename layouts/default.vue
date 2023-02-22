@@ -32,9 +32,9 @@ onMounted(() => {
           </NuxtLink>
         </v-btn>
         <v-btn icon>
-          <NuxtLink to="/favorites">
+<!--          <NuxtLink to="/favorites">-->
           <v-icon>mdi-heart</v-icon>
-          </NuxtLink>
+<!--          </NuxtLink>-->
         </v-btn>
 
         <!-- ---------------------------------------------- -->
