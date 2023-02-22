@@ -30,8 +30,7 @@
           large
       ></v-rating></p>
       <p style="color: #ff0000">
-        <v-icon>mdi-heart</v-icon>
-      <span>12</span>
+        <v-icon>mdi-heart-outline</v-icon>
       </p>
     </div>
     <div style="font-size: 12px; margin-top: 8px;">{{ product.description }}</div>
