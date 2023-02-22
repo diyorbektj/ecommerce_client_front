@@ -10,6 +10,7 @@
 
 <script>
 import axios from "axios";
+import {BASE_URL} from "./constants";
 
 export default {
   data(){
@@ -19,7 +20,7 @@ export default {
   },
   mounted() {
     if(!localStorage.getItem('guid')){
-      axios.get('http://localhost:8000/api/generate-guid?guid=' + localStorage.getItem('guid')).then(response => {
+      axios.get(BASE_URL+'/api/generate-guid?guid=' + localStorage.getItem('guid')).then(response => {
         localStorage.setItem('guid', response.data.guid)
       }).catch(error => {
         console.log(error)
