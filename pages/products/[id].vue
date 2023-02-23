@@ -3,7 +3,7 @@
     <Title>{{ product.name }}</Title>
     <Meta name="description" :content="product.description"/>
   </Head>
-<v-card style="padding: 24px 4px 4px 4px;">
+<v-card style="padding: 16px">
 <!--  <p><img style="max-width: 100%; height: auto" src="https://img.joomcdn.net/3a471d818df6d088b956251e491cf6f707c9e3c0_400_400.jpeg" alt=""></p>-->
   <div style="display: flex; justify-content: center; align-items: center;">
     <section class="gallery product-images">
