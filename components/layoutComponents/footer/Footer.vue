@@ -72,7 +72,7 @@
         <div v-if="step === 1" v-for="item in store.contents">
           <v-container>
             <div style="display: flex; justify-content: space-between">
-              <div class="pr-2">          <img style="border-radius: 5px;" width="80" height="80" :src="'http://127.0.0.1:8000'+item.product_image" alt=""></div>
+              <div class="pr-2">          <img style="border-radius: 5px;" width="80" height="80" :src="item.product_image" alt=""></div>
               <v-col style="padding: 10px; margin-top: 4px; margin-bottom: 4px">
                 <p style="font-size: 14px; padding: 5px">{{ item.product_name }}
                   <span class="ml-3 pa-1" style="background: #e7e7e7; border-radius: 3px" v-for="attribute in item.attributes">{{attribute}}</span>

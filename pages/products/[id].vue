@@ -5,7 +5,7 @@
   </Head>
 <v-card>
 <!--  <p><img style="max-width: 100%; height: auto" src="https://img.joomcdn.net/3a471d818df6d088b956251e491cf6f707c9e3c0_400_400.jpeg" alt=""></p>-->
-  <div style="display: flex; justify-content: center; align-items: center;">
+  <div class="images-res" style="display: flex; justify-content: center; align-items: center;">
     <section class="gallery product-images">
       <div v-for="(item, index) in product.images" :key="index" class="gallery__item" style="display: flex; justify-content: center">
         <input type="radio" :id='"img-"+index' checked name="gallery" class="gallery__selector"/>
@@ -235,10 +235,20 @@ img {
 }
 </style>
 <style scoped>
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+.images_res{
+
+}
+@media only screen and (max-width: 320px) {
+  .images_res{
+    padding: 116px;
+  }
+}
+
+/* iPads (portrait and landscape)  */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .images_res{
+    padding: 8px;
+  }
 }
 .product-images {
   display: grid;
