@@ -3,16 +3,21 @@
     <Title>{{ product.name }}</Title>
     <Meta name="description" :content="product.description"/>
   </Head>
-<v-card style="padding: 4px">
+<v-card style="padding: 4px 4px 4px 4px;">
 <!--  <p><img style="max-width: 100%; height: auto" src="https://img.joomcdn.net/3a471d818df6d088b956251e491cf6f707c9e3c0_400_400.jpeg" alt=""></p>-->
-  <section class="gallery product-images" style="display: flex; justify-content: center">
-    <div v-for="(item, index) in product.images" :key="index" class="gallery__item" style="display: flex; justify-content: center">
-      <input type="radio" :id='"img-"+index' checked name="gallery" class="gallery__selector"/>
-      <img style="max-width: 100%; height: 300px" class="gallery__img" :src="item.path" alt=""/>
-      <label :for='"img-"+index' class="gallery__thumb"><img style="width: 100px; height: 100px" :src="item.path" alt=""/></label>
-    </div>
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <section class="gallery product-images">
+      <div v-for="(item, index) in product.images" :key="index" class="gallery__item" style="display: flex; justify-content: center">
+        <input type="radio" :id='"img-"+index' checked name="gallery" class="gallery__selector"/>
+        <img style="width: 100%; height: 300px" class="gallery__img" :src="item.path" alt=""/>
+        <label :for='"img-"+index' class="gallery__thumb"><img style="width: 100px; height: 100px" :src="item.path" alt=""/></label>
+      </div>
 
-  </section>
+    </section>
+    <div>
+      <div></div>
+    </div>
+  </div>
   <v-col>
     <div class="pa-2">
       <p>{{ product.name }}</p>
@@ -109,8 +114,6 @@ import {useBasketStore} from "../../stores";
 import {BASE_URL} from "../../constants";
 import CryptoJS from "crypto-js"
 import Products from "../../components/products/Products";
-import products from "../../components/products/Products";
-
 
 export default {
   components: {Products},
