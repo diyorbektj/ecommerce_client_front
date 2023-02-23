@@ -3,13 +3,13 @@
     <Title>{{ product.name }}</Title>
     <Meta name="description" :content="product.description"/>
   </Head>
-<v-card style="padding: 16px">
+<v-card>
 <!--  <p><img style="max-width: 100%; height: auto" src="https://img.joomcdn.net/3a471d818df6d088b956251e491cf6f707c9e3c0_400_400.jpeg" alt=""></p>-->
   <div style="display: flex; justify-content: center; align-items: center;">
     <section class="gallery product-images">
       <div v-for="(item, index) in product.images" :key="index" class="gallery__item" style="display: flex; justify-content: center">
         <input type="radio" :id='"img-"+index' checked name="gallery" class="gallery__selector"/>
-        <img style="width: 100%; height: 300px" class="gallery__img" :src="item.path" alt=""/>
+        <img style="width: 100%; height: 300px; padding-left: 6px; padding-right: 6px; padding-top: 12px" class="gallery__img" :src="item.path" alt=""/>
         <label :for='"img-"+index' class="gallery__thumb"><img style="width: 100px; height: 100px" :src="item.path" alt=""/></label>
       </div>
 
