@@ -104,7 +104,14 @@
             </div>
           </v-container>
         </div>
-        <v-bottom-navigation style="height: auto; width: 100%">
+        <div style="
+              position: fixed;
+              right: 0;
+              bottom: 0;
+              left: 0;
+              z-index: 1030;
+          ">
+          <v-divider></v-divider>
           <v-col>
             <div style="display:flex; justify-content: space-between; font-size: 16px; padding-bottom: 8px">
               <p>Итоговая цена:</p>
@@ -120,7 +127,7 @@
               </button>
             </div>
           </v-col>
-        </v-bottom-navigation>
+        </div>
         <div style="flex: 1 1 auto;"></div>
         <div style="margin-bottom: 100px"></div>
       </form>
