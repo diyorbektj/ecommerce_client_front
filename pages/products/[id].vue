@@ -10,7 +10,7 @@
      <div class="modal-content">
        <div class="modal-nav">
          <div class="modal-nav-item" v-for="(image, index) in product.images" :key="index" @click="changeSlide(index, image.path)">
-           <div><img class="img-item" :src="image.path" alt="Product Image"></div>
+           <div><img style="width: 80px; height: 100px" :src="image.path" alt="Product Image"></div>
          </div>
        </div>
        <div><img class="img-cover" :src="image" alt="Product Image"></div>
@@ -234,7 +234,7 @@ export default {
   height: 365px
 }
 .img-item{
-  width: 8000px;
+  width: 800px;
   height: 100px
 }
 @media (max-width: 410px) {
@@ -243,11 +243,11 @@ export default {
     grid-template-columns: repeat(1, 1fr);
   }
   .img-cover{
-    width: 220px;
-    height: 320px
+    width: 260px;
+    height: 365px
   }
   .modal-nav{
-    height: 320px;
+    height: 365px;
   }
   .img-item{
     width: 85px;
@@ -278,8 +278,8 @@ export default {
 /* iPads (portrait and landscape)  */
 @media (min-width: 820px){
   .img-cover{
-    width: 340px;
-    height: 545px
+    width: 310px;
+    height: 520px
   }
   .modal-nav{
     height: 545px;
