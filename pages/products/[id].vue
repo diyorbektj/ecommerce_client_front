@@ -282,7 +282,7 @@ export default {
     height: 520px
   }
   .modal-nav{
-    height: 545px;
+    height: 520px;
   }
   .img-item{
     width: 80px;
