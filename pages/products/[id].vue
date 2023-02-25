@@ -18,8 +18,9 @@
    </div>
    <div>
      <v-col>
-       <div class="pa-2">
+       <div class="pa-2" style="display: flex; justify-content: space-between">
          <p>{{ product.name }}</p>
+         <p style="font-size: 14px"><button style="background: #d5d5d5; padding: 3px">{{ product.brand }}</button></p>
        </div>
        <div style="display: flex;justify-content: space-between">
          <p><v-rating
