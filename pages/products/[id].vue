@@ -18,10 +18,6 @@
    </div>
    <div>
      <v-col>
-       <div class="pa-2" style="display: flex; justify-content: space-between">
-         <p>{{ product.name }}</p>
-         <p style="font-size: 14px"><button style="background: #d5d5d5; padding: 3px">{{ product.brand }}</button></p>
-       </div>
        <div style="display: flex;justify-content: space-between">
          <p><v-rating
              v-model="rating"
@@ -38,6 +34,10 @@
            <v-icon>mdi-heart-outline</v-icon>
          </p>
        </div>
+       <div class="pt-2 pb-2" style="font-size: 18px">
+         <p>{{ product.name }}</p>
+         <p style="font-size: 15px; padding-top: 10px">Бренд: {{ product.brand }}</p>
+       </div>
        <div style="font-size: 12px; margin-top: 8px;">{{ product.description }}</div>
        <div class="py-4">
          <div class="py-4">
@@ -47,6 +47,7 @@
          </div>
          <p style="font-size: 25px">{{product.price}} сомони</p>
        </div>
+       <v-divider></v-divider>
        <div v-if="errors" style="margin-top: 10px; margin-bottom: 10px">
          <v-alert
              color="error"
