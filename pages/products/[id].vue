@@ -46,10 +46,6 @@
          </div>
          <p style="font-size: 25px">{{product.price}} сомони</p>
        </div>
-       <div style="display: flex;justify-content: space-between">
-         <v-btn @click="AddBasket(product.id)" class="px-8" style="font-size: 16px" color="success">В корзину</v-btn>
-         <v-btn disabled class="px-6" style="font-size: 16px" color="red">Купить сейчас</v-btn>
-       </div>
        <div v-if="errors" style="margin-top: 10px; margin-bottom: 10px">
          <v-alert
              color="error"
@@ -80,9 +76,15 @@
              <div v-for="size in sizes">
                <button @click="Select_sizes(size.value)" v-if="selected_size === size.value"  style="background: #e7e7e7; padding: 6px 8px 6px 8px; font-size: 16px; font-weight: 300; margin: 6px; border-radius: 8px; border: 2px solid #000000">{{ size.value }}</button>
                <button @click="Select_sizes(size.value)" v-else style="background: #e7e7e7; padding: 6px 8px 6px 8px; font-size: 16px; font-weight: 300; margin: 6px; border-radius: 8px;">{{ size.value }}</button>
+               <button @click="Select_sizes(size.value)" v-else style="background: #e7e7e7; padding: 6px 8px 6px 8px; font-size: 16px; font-weight: 300; margin: 6px; border-radius: 8px;">{{ size.value }}</button>
              </div>
            </div>
          </div>
+       </div>
+       <v-divider class="my-6"></v-divider>
+       <div style="display: flex;justify-content: space-between; padding-bottom: 10px">
+         <v-btn @click="AddBasket(product.id)" class="px-8" style="font-size: 16px" color="success">В корзину</v-btn>
+         <v-btn disabled class="px-6" style="font-size: 16px" color="red">Купить сейчас</v-btn>
        </div>
      </v-col>
    </div>
