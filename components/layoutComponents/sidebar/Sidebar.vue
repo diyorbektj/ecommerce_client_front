@@ -13,11 +13,20 @@
           <!-- ---------------------------------------------- -->
           <!---Single Item-->
           <!-- ---------------------------------------------- -->
-          <v-list-item :to='"/categories/"+item.id' rounded="lg" class="mb-1">
+          <v-list-item rounded="lg" class="mb-1">
            <div style="display: flex;justify-content: start">
              <div style="padding-right: 10px"><v-icon>mdi-folder</v-icon></div>
-             <div v-text="item.name"></div>
+             <NuxtLink :to='"/categories/"+item.id'><div v-text="item.name"></div></NuxtLink>
+             <button @click="item.is_active=false" v-if="item.is_active" style="position: absolute; right: 0"><v-icon>mdi-chevron-up</v-icon></button>
+             <button @click="item.is_active=true" v-else style="position: absolute; right: 0"><v-icon>mdi-chevron-down</v-icon></button>
            </div>
+          </v-list-item>
+          <v-list-item v-if="item.is_active" v-for="subcategory in item.subcategory" rounded="lg" class="mb-1">
+            <div style="display: flex;justify-content: start">
+              <div style="padding-right: 10px"><v-icon>mdi-minus</v-icon></div>
+              <NuxtLink :to='"/subcategories/"+item.id'><div v-text="subcategory.name"></div></NuxtLink>
+            </div>
+
           </v-list-item>
         </template>
       </v-list>
@@ -45,6 +54,23 @@ export default {
     }).catch(err => {
       console.log(err)
     });
+  },
+  methods: {
+
   }
 }
 </script>
+<style scoped>
+
+.router-link-exact-active {
+  color: rgb(24, 183, 55);
+  font-weight: bold;
+}
+
+a{
+  color: #000000;
+  text-decoration: none!important;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+}
+</style>

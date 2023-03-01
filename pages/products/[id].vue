@@ -4,6 +4,12 @@
     <Meta name="description" :content="product.description"/>
   </Head>
 <v-card>
+  <ul class="breadcrumb">
+    <li><NuxtLink to="/">Главная</NuxtLink></li>
+    <li><NuxtLink :to="'/categories/'+category.id">{{ category.name }}</NuxtLink></li>
+    <li><NuxtLink :to="'/'+category.id">{{ subcategory.name }}</NuxtLink></li>
+    <li style="color:#757575;">{{ product.name}}</li>
+  </ul>
 <!--  <p><img style="max-width: 100%; height: auto" src="https://img.joomcdn.net/3a471d818df6d088b956251e491cf6f707c9e3c0_400_400.jpeg" alt=""></p>-->
  <div class="container-card">
    <div style="padding-top: 40px">
@@ -136,7 +142,9 @@ export default {
     errors: false,
     modalOpen: false,
     currentIndex: 0,
-    image: ""
+    image: "",
+    category: {},
+    subcategory: {},
   }),
   mounted() {
     axios.get(BASE_URL+`/api/product`).then(response => {
@@ -147,6 +155,8 @@ export default {
     const route = useRoute()
     axios.get(BASE_URL+`/api/product/`+route.params.id).then(response => {
       this.product = response.data.data
+      this.category = response.data.data.category
+      this.subcategory = response.data.data.subcategory
       this.colors = response.data.data.colors
       this.sizes = response.data.data.sizes ?? 'NULL'
       this.image = response.data.data.images[0].path
@@ -188,7 +198,29 @@ export default {
 </script>
 
 <style scoped>
-
+ul.breadcrumb {
+  font-size: 14px;
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #deffe3;
+}
+ul.breadcrumb li {
+  display: inline;
+  font-size: 14px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: #000000;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
 .swiper-slide img {
   width: 100%;
   height: 100%;
