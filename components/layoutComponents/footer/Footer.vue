@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-bottom-navigation background-color="green" grow elevation="0.1">
-      <v-btn value="recent">
+      <v-btn @click.prevent="ToHome" value="recent">
         <v-icon>mdi-home</v-icon>
 
         Главная
@@ -153,6 +153,10 @@ export default {
     }
   },
   methods: {
+    ToHome(){
+      const router = useRouter();
+      router.push({ path: "/" });
+    },
     BuyProducts(){
       if(this.step === 1){
         const store = useBasketStore()
