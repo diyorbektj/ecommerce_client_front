@@ -9,24 +9,32 @@
   <div style="padding: 10px">
     <v-text-field v-model="keyword" placeholder="Search" background-color="#ffffff"></v-text-field>
   </div>
-  <Products :products="products" />
+  <ProductSkeleton v-if="is_loading"/>
+  <Products v-else :products="products" />
 </template>
 
 <script>
 import axios from "axios";
 import {BASE_URL} from "../constants";
 import Products from "../components/products/Products";
+import ProductSkeleton from "../components/products/ProductSkeleton";
+
 
 export default {
-  components: {Products},
+  components: {
+    Products,
+    ProductSkeleton
+  },
   data: () => ({
     sheet: false,
     rating: 1,
     keyword: "",
     products: [],
+    is_loading: true,
   }),
   watch:{
     keyword(after, before) {
+      this.is_loading=true
       this.Search();
     }
   },
@@ -35,6 +43,7 @@ export default {
       axios.get(BASE_URL+"/api/product/search", { params: { search: this.keyword }})
           .then(response => {
             this.products = response.data.data
+            this.is_loading=false
           });
     },
   },
@@ -42,6 +51,7 @@ export default {
     axios.get(BASE_URL+"/api/product/", { params: { search: this.keyword }})
         .then(response => {
           this.products = response.data.data
+          this.is_loading=false
         });
   },
 }

@@ -7,26 +7,30 @@
     <div style="font-size: 24px; font-weight: bold">{{ category.name }}</div>
     <v-btn color="success"><v-icon>mdi-filter</v-icon></v-btn>
   </div>
-  <Products :products="products" />
+  <ProductSkeleton v-if="is_loading" />
+  <Products v-else :products="products" />
 </template>
 
 <script>
 import axios from "axios";
 import {BASE_URL} from "../../constants";
 import Products from "../../components/products/Products";
+import ProductSkeleton from "../../components/products/ProductSkeleton";
 
 export default {
-  components: {Products},
+  components: {Products, ProductSkeleton},
   data: () => ({
     sheet: false,
     rating: 1,
     products: [],
-    category: {}
+    category: {},
+    is_loading: true
   }),
   mounted() {
     const route = useRoute()
     axios.get(BASE_URL+`/api/product/category/`+route.params.id).then(response => {
       this.products = response.data.data
+      this.is_loading=true
     }).catch(err => {
       console.log(err);
     });

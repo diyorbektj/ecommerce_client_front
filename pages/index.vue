@@ -3,7 +3,8 @@
     <Title>Seb.tj Покупки на каждый день или просто так</Title>
     <Meta name="description" content="Товары по ценам, которые не найти в магазинах вашего города, доставка бесплатно!"/>
   </Head>
-  <swiper
+  <div v-if="is_loading" class="skeleton skeleton-img" style="height: 200px; width: 100%"></div>
+  <swiper v-else
       :auto-height="true"
       :centeredSlides="true"
       :autoplay='{
@@ -18,18 +19,17 @@
       :modules="modules"
       class="mySwiper"
   >
-    <swiper-slide class="img-slider"><img style="border-radius: 15px" src="https://images.uzum.uz/cfqovovhj8j9g69850t0/main_page_banner.jpg"></swiper-slide>
-    <swiper-slide class="img-slider"><img style="border-radius: 15px" src="https://images.uzum.uz/cfrnt27hgiov1qics20g/main_page_banner.jpg"></swiper-slide>
-    <swiper-slide class="img-slider"><img style="border-radius: 15px" src="https://images.uzum.uz/cfu7a27hgiov1qid4r7g/main_page_banner.jpg"></swiper-slide>
-    <swiper-slide class="img-slider"><img style="border-radius: 15px" src="https://images.uzum.uz/cfrnvbng49devoa90aag/main_page_banner.jpg"></swiper-slide>
-  </swiper>
-    <Products :products="products"></Products>
+    <swiper-slide class="img-slider" v-for="image in images"><img style="border-radius: 15px" :src="image"></swiper-slide>
+      </swiper>
+    <ProductsSkeletion v-if="is_loading"></ProductsSkeletion>
+    <Products v-else :products="products"></Products>
 </template>
 
 <script>
 import axios from "axios";
 import {BASE_URL} from "../constants";
 import Products from "../components/products/Products";
+import ProductsSkeletion from "../components/products/ProductSkeleton";
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 // Import Swiper styles
@@ -45,6 +45,7 @@ export default {
     Products,
     Swiper,
     SwiperSlide,
+    ProductsSkeletion
   },
   setup() {
     return {
@@ -61,11 +62,20 @@ export default {
         delay: 4000,
         disableOnInteraction: false
       },
+      is_loading: true,
+      images: []
     }
   },
   mounted() {
     axios.get(BASE_URL+`/api/product`).then(response => {
       this.products = response.data.data
+      this.images = [
+          "https://images.uzum.uz/cfqovovhj8j9g69850t0/main_page_banner.jpg",
+          "https://images.uzum.uz/cfrnt27hgiov1qics20g/main_page_banner.jpg",
+          "https://images.uzum.uz/cfu7a27hgiov1qid4r7g/main_page_banner.jpg",
+          "https://images.uzum.uz/cfrnvbng49devoa90aag/main_page_banner.jpg"
+      ]
+      this.is_loading = false
     }).catch(err => {
       console.log(err);
     });
@@ -143,5 +153,38 @@ a{
     width: 949px;
     height: 360px
   }
+}
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.skeleton-text {
+  height: 0.8rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-text__body {
+  width: 75%;
+}
+
+.skeleton-footer {
+  width: 30%;
 }
 </style>

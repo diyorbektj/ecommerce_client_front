@@ -6,10 +6,19 @@
     <div class="scrollnavbar">
 
       <v-list class="pa-4">
+        <div v-if="is_loading">
+          <div class="skeleton skeleton-text ma-4" style="margin-top: 10px; height: 30px"></div>
+          <div class="skeleton skeleton-text ma-4" style="margin-top: 10px; height: 30px"></div>
+          <div class="skeleton skeleton-text ma-4" style="margin-top: 10px; height: 30px"></div>
+          <div class="skeleton skeleton-text ma-4" style="margin-top: 10px; height: 30px"></div>
+          <div class="skeleton skeleton-text ma-4" style="margin-top: 10px; height: 30px"></div>
+          <div class="skeleton skeleton-text ma-4" style="margin-top: 10px; height: 30px"></div>
+          <div class="skeleton skeleton-text ma-4" style="margin-top: 10px; height: 30px"></div>
+        </div>
         <!-- ---------------------------------------------- -->
         <!---Menu Loop -->
         <!-- ---------------------------------------------- -->
-        <template v-for="(item, i) in categories" :key="i">
+        <template v-else v-for="(item, i) in categories" :key="i">
           <!-- ---------------------------------------------- -->
           <!---Single Item-->
           <!-- ---------------------------------------------- -->
@@ -45,12 +54,14 @@ export default {
   data() {
     return {
       sidebarMenu: ref(sidebarItems),
-      categories: []
+      categories: [],
+      is_loading: true
     }
   },
   mounted() {
     axios.get(BASE_URL+`/api/category`).then(response => {
       this.categories = response.data
+      this.is_loading = false
     }).catch(err => {
       console.log(err)
     });
