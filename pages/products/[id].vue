@@ -37,7 +37,8 @@
              large
          ></v-rating></p>
          <p style="color: #ff0000">
-           <v-icon>mdi-heart-outline</v-icon>
+           <v-btn @click.prevent="RemoveToFavorite" style="color: #00c853; font-size: 20px" v-if="is_favorite" elevation="0"><v-icon>mdi-heart</v-icon></v-btn>
+           <v-btn @click.prevent="AddToFavorite" style="color: #00c853; font-size: 20px" v-else elevation="0"><v-icon>mdi-heart-outline</v-icon></v-btn>
          </p>
        </div>
        <div class="pt-2 pb-2" style="font-size: 18px">
@@ -126,6 +127,8 @@ import {BASE_URL} from "../../constants";
 import CryptoJS from "crypto-js"
 import Products from "../../components/products/Products";
 
+const route = useRoute()
+
 export default {
   components: {Products},
   data: () => ({
@@ -145,6 +148,7 @@ export default {
     image: "",
     category: {},
     subcategory: {},
+    is_favorite: false,
   }),
   mounted() {
     axios.get(BASE_URL+`/api/product`).then(response => {
@@ -152,7 +156,6 @@ export default {
     }).catch(err => {
       console.log(err);
     });
-    const route = useRoute()
     axios.get(BASE_URL+`/api/product/`+route.params.id).then(response => {
       this.product = response.data.data
       this.category = response.data.data.category
@@ -160,6 +163,11 @@ export default {
       this.colors = response.data.data.colors
       this.sizes = response.data.data.sizes ?? 'NULL'
       this.image = response.data.data.images[0].path
+    }).catch(err => {
+      console.log(err);
+    });
+    axios.get(BASE_URL+`/api/favorite/check`, {params: {product_id: route.params.id, guid: localStorage.getItem('guid')}}).then(response => {
+      this.is_favorite = response.data
     }).catch(err => {
       console.log(err);
     });
@@ -180,6 +188,20 @@ export default {
       }else{
         this.errors = true;
       }
+    },
+    RemoveToFavorite(){
+      axios.get(BASE_URL+`/api/favorite/create`, {params: {product_id: route.params.id, guid: localStorage.getItem('guid')}}).then(response => {
+        this.is_favorite = false
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    AddToFavorite(){
+      axios.get(BASE_URL+`/api/favorite/create`, {params: {product_id: route.params.id, guid: localStorage.getItem('guid')}}).then(response => {
+        this.is_favorite = true
+      }).catch(err => {
+        console.log(err);
+      });
     },
     Select_colors(color){
       this.selected_color = color;
