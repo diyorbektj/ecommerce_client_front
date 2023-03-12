@@ -127,7 +127,6 @@ import {BASE_URL} from "../../constants";
 import CryptoJS from "crypto-js"
 import Products from "../../components/products/Products";
 
-const route = useRoute()
 
 export default {
   components: {Products},
@@ -150,13 +149,9 @@ export default {
     subcategory: {},
     is_favorite: false,
   }),
-  mounted() {
-    axios.get(BASE_URL+`/api/product`).then(response => {
-      this.products = response.data.data
-    }).catch(err => {
-      console.log(err);
-    });
-    axios.get(BASE_URL+`/api/product/`+route.params.id).then(response => {
+  async mounted() {
+    const route = useRoute()
+    await axios.get(BASE_URL+`/api/product/`+route.params.id).then(response => {
       this.product = response.data.data
       this.category = response.data.data.category
       this.subcategory = response.data.data.subcategory
@@ -166,7 +161,14 @@ export default {
     }).catch(err => {
       console.log(err);
     });
-    axios.get(BASE_URL+`/api/favorite/check`, {params: {product_id: route.params.id, guid: localStorage.getItem('guid')}}).then(response => {
+
+    await axios.get(BASE_URL+`/api/product`).then(response => {
+      this.products = response.data.data
+    }).catch(err => {
+      console.log(err);
+    });
+
+    await axios.get(BASE_URL+`/api/favorite/check`, {params: {product_id: route.params.id, guid: localStorage.getItem('guid')}}).then(response => {
       this.is_favorite = response.data
     }).catch(err => {
       console.log(err);
@@ -190,6 +192,7 @@ export default {
       }
     },
     RemoveToFavorite(){
+      const route = useRoute()
       axios.get(BASE_URL+`/api/favorite/create`, {params: {product_id: route.params.id, guid: localStorage.getItem('guid')}}).then(response => {
         this.is_favorite = false
       }).catch(err => {
