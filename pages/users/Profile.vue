@@ -32,10 +32,10 @@
    <v-card class="mt-4 mb-4">
      <div class="pa-2" style="color: #7b7b7b">
        <div class="pa-4"><v-icon>mdi-archive</v-icon>Мои заказы</div>
+       <div class="pa-4"><v-icon>mdi-map-marker</v-icon>Адрес доставка</div>
        <div class="pa-4"><v-icon>mdi-archive</v-icon>Мои заказы</div>
        <div class="pa-4"><v-icon>mdi-archive</v-icon>Мои заказы</div>
-       <div class="pa-4"><v-icon>mdi-archive</v-icon>Мои заказы</div>
-       <div class="pa-4"><v-icon>mdi-archive</v-icon>Мои заказы</div>
+       <div class="pa-4"><v-icon>mdi-logout</v-icon>Выход</div>
      </div>
    </v-card>
  </div>
