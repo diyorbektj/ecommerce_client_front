@@ -200,6 +200,7 @@ export default {
       });
     },
     AddToFavorite(){
+      const route = useRoute()
       axios.get(BASE_URL+`/api/favorite/create`, {params: {product_id: route.params.id, guid: localStorage.getItem('guid')}}).then(response => {
         this.is_favorite = true
       }).catch(err => {
