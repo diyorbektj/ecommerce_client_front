@@ -3,7 +3,21 @@
     <Title>{{ product.name }}</Title>
     <Meta name="description" :content="product.description"/>
   </Head>
-<v-card>
+  <v-card v-if="is_loading">
+    <div class="container-card">
+      <div class="skeleton skeleton-img" style="height: 250px"></div>
+      <div class="pa-4">
+        <div style="display: flex; justify-content: space-between">
+          <div class="skeleton skeleton-text" style="width: 200px"></div>
+          <div class="skeleton skeleton-text" style="width: 120px"></div>
+        </div>
+        <div class="skeleton skeleton-text" style="width: 100px;margin-top: 20px"></div>
+        <div class="skeleton skeleton-text" style="width: 120px"></div>
+        <div class="skeleton skeleton-text" style="width: 360px;"></div>
+      </div>
+    </div>
+  </v-card>
+<v-card v-else>
   <ul class="breadcrumb">
     <li><NuxtLink to="/">Главная</NuxtLink></li>
     <li><NuxtLink :to="'/categories/'+category.id">{{ category.name }}</NuxtLink></li>
@@ -117,7 +131,8 @@
     </template>
   </v-snackbar>
 <v-card-text style="font-size: 24px; font-weight: bold">Похожие товары</v-card-text>
-  <Products :products="products" />
+  <ProductSkeleton v-if="is_loading" />
+  <Products v-else :products="products" />
 </template>
 
 <script>
@@ -126,10 +141,11 @@ import {useBasketStore} from "../../stores";
 import {BASE_URL} from "../../constants";
 import CryptoJS from "crypto-js"
 import Products from "../../components/products/Products";
+import ProductSkeleton from "../../components/products/ProductSkeleton";
 
 
 export default {
-  components: {Products},
+  components: {Products, ProductSkeleton},
   data: () => ({
     snackbar: false,
     rating: 1,
@@ -148,6 +164,7 @@ export default {
     category: {},
     subcategory: {},
     is_favorite: false,
+    is_loading: true
   }),
   async mounted() {
     const route = useRoute()
@@ -164,6 +181,7 @@ export default {
 
     await axios.get(BASE_URL+`/api/product`).then(response => {
       this.products = response.data.data
+      this.is_loading = false
     }).catch(err => {
       console.log(err);
     });

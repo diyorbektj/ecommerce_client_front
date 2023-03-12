@@ -5,7 +5,10 @@ export default defineNuxtConfig({
         extractCSS: false,
         transpile: ["vuetify"],
     },
-    css: ["@/assets/scss/style.scss"],
+    css: [
+        "@/assets/scss/style.scss",
+        '@/assets/css/main.css',
+    ],
     vite: {
         define: {
             "process.env.DEBUG": false,
