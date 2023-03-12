@@ -20,7 +20,7 @@
         Корзина
       </v-btn>
 
-      <v-btn value="nearby">
+      <v-btn @click.prevent="ToProfile" value="nearby">
         <v-icon>mdi-account</v-icon>
 
         Акаунт
@@ -156,6 +156,10 @@ export default {
     ToHome(){
       const router = useRouter();
       router.push({ path: "/" });
+    },
+    ToProfile(){
+      const router = useRouter();
+      router.push({ path: "/users/profile" });
     },
     BuyProducts(){
       if(this.step === 1){
